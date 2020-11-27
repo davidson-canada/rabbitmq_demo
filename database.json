@@ -1,0 +1,17 @@
+{
+    "dev": {
+        "url": {
+            "ENV": "DATABASE_URL"
+        },
+        "addIfNotExists": {
+            "ssl": {
+                "rejectUnauthorized": false
+            }
+        }
+    },
+    "local": {
+        "url": {
+            "ENV": "DATABASE_URL"
+        }
+    }
+}
