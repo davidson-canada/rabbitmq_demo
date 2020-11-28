@@ -1,6 +1,5 @@
 import { Channel, ConsumeMessage } from "amqplib";
 import { Queue, Topic, Exchange, CustomMessage } from "./amqp.models";
-import { v4 } from "uuid";
 
 type ProcessMessage = (msg: ConsumeMessage) => Promise<void>;
 export async function consumeFromQueue(channel: Channel, queue: Queue, fn: ProcessMessage): Promise<void> {
@@ -44,7 +43,7 @@ export async function publish(
   const bufferedMessage = Buffer.from(stringifiedMessage);
   const correlationId = "someTracingId"; // some tracing id that comes from the request/controller publishing a message to the broker
   channel.publish(exchange, topic, bufferedMessage, {
-    messageId: v4(), // a randomly generated identifier for this specific message
+    messageId: "someMessageId", // a randomly generated identifier for this specific message
     correlationId: typeof correlationId === "string" ? correlationId : undefined,
     timestamp: new Date().getTime(),
     contentType: "application/json",

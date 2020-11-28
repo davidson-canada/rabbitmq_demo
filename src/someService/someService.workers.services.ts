@@ -1,8 +1,8 @@
 import { isRecord } from "../helpers";
-import { isSomeService } from "./someService.models";
+import { isSomeService, SomeService } from "./someService.models";
 import { writeSomeServiceToDatabase } from "./someService.repositories";
 
-export async function aFunctionThatBlocksTheEventLoopFor5Seconds(x: unknown): Promise<void> {
+export async function aFunctionThatBlocksTheEventLoopFor5Seconds(x: unknown): Promise<SomeService | null> {
   const dateIn5Seconds = new Date(new Date().getTime() + 5000);
   let dateCounter = new Date();
 
@@ -12,7 +12,7 @@ export async function aFunctionThatBlocksTheEventLoopFor5Seconds(x: unknown): Pr
   }
 
   if (isRecord(x) && "body" in x && isSomeService(x.body)) {
-    await writeSomeServiceToDatabase(x.body);
+    return writeSomeServiceToDatabase(x.body);
   }
-  return;
+  return null;
 }
