@@ -1,9 +1,10 @@
 import express from "express";
-import { getSomeService, setSomeService } from "./someService/someService.controllers";
+import { getSomeService, setSomeService, getSomeServiceFail } from "./someService/someService.controllers";
 
 const PORT = process.env.PORT || 8080;
 const server = express();
 
+server.get("/someService/fail", getSomeServiceFail);
 server.get("/someService", getSomeService);
 server.post("/someService", setSomeService);
 
